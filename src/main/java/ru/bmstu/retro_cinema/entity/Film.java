@@ -24,24 +24,24 @@ public class Film {
     @Column(nullable = false)
     private String title; // Название фильма
 
-//    @Column(length = 1000)
-//    private String description; // Описание фильма
-//
-//    @Column
-//    private LocalDate releaseDate; // Дата выхода
+    @Column(length = 1000)
+    private String description; // Описание фильма
 
-    @ManyToMany(mappedBy = "films")
-    private List<Cinema> cinemas;
+    @Column
+    private LocalDate releaseDate; // Дата выхода
+//
+//    @ManyToMany(mappedBy = "films")
+//    private List<Cinema> cinemas;
 
-//    @Column
-//    private Double rating; // Рейтинг фильма
-//
-//    @Column
-//    private String director; // Режиссер фильма
-//
-//    @Column
-//    private Integer duration; // Продолжительность в минутах
-//
-//    @Column
-//    private String country; // Страна производства
+    @Column
+    private Double rating; // Рейтинг фильма
+
+    @Column
+    private String director; // Режиссер фильма
+
+    @Column
+    private Integer duration; // Продолжительность в минутах
+
+    @Column
+    private String country; // Страна производства
 }

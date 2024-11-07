@@ -24,12 +24,12 @@ public class Cinema {
 
     @Column(nullable = false)
     private String address;
-
-    @ManyToMany
-    @JoinTable(
-            name = "cinema_film",
-            joinColumns = @JoinColumn(name = "cinema_id"),
-            inverseJoinColumns = @JoinColumn(name = "film_id")
-    )
-    private List<Film> films;
+//
+//    @ManyToMany
+//    @JoinTable(
+//            name = "cinema_film",
+//            joinColumns = @JoinColumn(name = "cinema_id"),
+//            inverseJoinColumns = @JoinColumn(name = "film_id")
+//    )
+//    private List<Film> films;
 }

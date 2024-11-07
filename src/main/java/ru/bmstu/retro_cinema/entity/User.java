@@ -17,10 +17,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @Column(unique = true, nullable = false)
     private String username;
+
     @Column(unique = true, nullable = false)
     private String password;
+
     @Column(unique = true, nullable = false)
     private String email;
 
@@ -29,5 +32,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Ticket> tickets;
 }

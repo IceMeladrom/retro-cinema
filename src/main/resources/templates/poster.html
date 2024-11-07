@@ -11,8 +11,16 @@
 <body>
 <header th:replace="~{base :: header}"></header>
 <main>
-    <h2>Это админская панель</h2>
-    <p>Здесь можно управлять всем</p>
+    <h2>Это афиша</h2>
+    <ul>
+        <li th:each="filmSession : ${filmSessions}">
+            <p th:text="'Фильм: ' + ${filmSession.film.title}">Фильм: FilmExample</p>
+            <p th:text="'Кинотеатр: ' + ${filmSession.cinema.name}">Кинотеатр: CinemaExample</p>
+            <p th:text="'Адрес: ' + ${filmSession.cinema.address}">Адрес кинотеатра: AddressExample</p>
+            <a th:href="@{/buy(filmId=${filmSession.film.id}, cinemaId=${filmSession.cinema.id})}">Купить билет</a>
+            <br/>
+        </li>
+    </ul>
 </main>
 <footer th:replace="~{base :: footer}"></footer>
 </body>

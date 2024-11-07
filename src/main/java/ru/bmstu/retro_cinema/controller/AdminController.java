@@ -1,6 +1,10 @@
 package ru.bmstu.retro_cinema.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +16,17 @@ import ru.bmstu.retro_cinema.entity.Film;
 import ru.bmstu.retro_cinema.repository.CinemaRepository;
 import ru.bmstu.retro_cinema.service.CinemaService;
 import ru.bmstu.retro_cinema.service.FilmService;
+import ru.bmstu.retro_cinema.service.FilmSessionService;
+
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/admin")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AdminController {
-    private FilmService filmService;
-    private CinemaService cinemaService;
-    private CinemaRepository cinemaRepository;
+    private final FilmService filmService;
+    private final CinemaService cinemaService;
+    private final FilmSessionService filmSessionService;
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
@@ -47,18 +54,12 @@ public class AdminController {
 
     @PostMapping("/link")
     public String linkFilmToCinema(@RequestParam Long filmId, @RequestParam Long cinemaId, RedirectAttributes redirectAttributes) {
-        if (cinemaRepository.existsByIdAndFilms_Id(cinemaId, filmId)) {
+        ResponseEntity<String> response = filmSessionService.createSession(filmId, cinemaId);
+
+        if (response.getStatusCode().isSameCodeAs(HttpStatus.CONFLICT)) {
             redirectAttributes.addFlashAttribute("message", "Данный фильм уже есть в этом кинотеатре!");
             return "redirect:/admin/dashboard"; // Перенаправление на ту же страницу с сообщением
         }
-        Film film = filmService.get(filmId);
-        Cinema cinema = cinemaService.get(cinemaId);
-
-        film.getCinemas().add(cinema);
-        cinema.getFilms().add(film);
-
-        filmService.add(film);
-        cinemaService.add(cinema);
 
         redirectAttributes.addFlashAttribute("message", "Фильм успешно добавлен в кинотеатр!");
         return "redirect:/admin/dashboard";
