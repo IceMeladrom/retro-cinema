@@ -1,0 +1,24 @@
+<!-- src/main/resources/templates/profile.html -->
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Профиль - СОВРЕМЕННИК</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" th:href="@{/css/style.css}">
+</head>
+<body>
+<header th:replace="~{base :: header}"></header>
+<main>
+    <h2>Ваш профиль</h2>
+    <p><strong>Логин:</strong> <span sec:authentication="principal.user.username">username</span></p>
+    <p><strong>Почта:</strong> <span sec:authentication="principal.user.email">email@example.com</span></p>
+    <form action="/" th:action="@{/logout}" method="post">
+        <button type="submit">Выйти</button>
+    </form>
+</main>
+<footer th:replace="~{base :: footer}"></footer>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!-- src/main/resources/templates/base.html -->
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">СОВРЕМЕННИК</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" th:href="@{/css/style.css}">
+</head>
+<body>
+<header th:fragment="header">
+    <div class="logo">
+        <a th:href="@{/}" class="logo-link">СОВРЕМЕННИК</a>
+    </div>
+    <nav class="navbar">
+        <ul>
+            <li><a th:href="@{/}">Главная</a></li>
+            <li><a th:href="@{/afisha}">Афиша</a></li>
+            <li><a th:href="@{/contacts}">Контакты</a></li>
+        </ul>
+    </nav>
+    <div class="login-link">
+        <span sec:authorize-url="/admin">
+            <a th:href="@{/admin/dashboard}">Панель администратора</a> <!-- Ссылка на админскую панель -->
+        </span>
+        <!-- Проверка, аутентифицирован ли пользователь с использованием sec:authorize -->
+        <span sec:authorize="isAuthenticated()">
+            <a th:href="@{/profile}">Профиль</a> <!-- Ссылка на профиль -->
+        </span>
+        <span sec:authorize="isAnonymous()">
+            <a th:href="@{/login}">Вход</a> <!-- Ссылка на вход -->
+        </span>
+    </div>
+</header>
+
+<main>
+</main>
+
+<footer th:fragment="footer">
+    <div class="contact-info">
+        <p>Телефон: +7 (901) 285-61-94</p>
+        <p>E-mail: <a href="mailto:sovremennik@yandex.ru">sovremennik@yandex.ru</a></p>
+        <p>&copy; 2024 СОВРЕМЕННИК</p>
+    </div>
+</footer>
+</body>
+</html>
