@@ -1,6 +1,6 @@
 package ru.bmstu.retro_cinema.controller;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +14,15 @@ import ru.bmstu.retro_cinema.service.UserService;
 import java.util.Optional;
 
 @Controller
-@AllArgsConstructor
-public class RegistrationController {
-    private UserService userService;
-    private UserRepository userRepository;
+@RequiredArgsConstructor
+public class UserController {
+    private final UserService userService;
+    private final UserRepository userRepository;
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 
     @GetMapping("/registration")
     public String registration() {
@@ -27,7 +32,7 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String registration(@ModelAttribute UserDto userDto, Model model) {
         Optional<User> userFromDb = userRepository.findByUsername(userDto.getUsername());
-        if (userFromDb.isPresent()){
+        if (userFromDb.isPresent()) {
             model.addAttribute("registrationError", "User already exists!");
             return "/registration";
         }

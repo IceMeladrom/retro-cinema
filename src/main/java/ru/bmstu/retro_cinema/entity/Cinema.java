@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.logging.log4j.util.Lazy;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "cinema")
@@ -24,6 +26,9 @@ public class Cinema {
 
     @Column(nullable = false)
     private String address;
+
+    @OneToMany(mappedBy = "cinema", orphanRemoval = true)
+    private Set<Hall> halls;
 //
 //    @ManyToMany
 //    @JoinTable(
