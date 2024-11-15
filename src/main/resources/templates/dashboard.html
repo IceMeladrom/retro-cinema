@@ -13,67 +13,10 @@
 <main>
     <h3 th:if="@{message}" th:text="${message}" style="color: green;"></h3>
     <h2>Это админская панель</h2>
-    <p>Здесь можно управлять всем</p>
-    <form th:action="@{/admin/add/film}" method="post">
-        <div>
-            <label for="film-title">Название кино: </label>
-            <input type="text" id="film-title" name="title" required>
-        </div>
-        <button type="submit">Добавить</button>
-    </form>
-    <form th:action="@{/admin/add/cinema}" method="post">
-        <div>
-            <label for="cinema-name">Название кинотеатра: </label>
-            <input type="text" id="cinema-name" name="name" required>
 
-            <label for="cinema-address">Адрес: </label>
-            <input type="text" id="cinema-address" name="address" required>
-        </div>
-        <button type="submit">Добавить</button>
-    </form>
-
-    <!-- Список всех фильмов -->
-    <section>
-        <h3>Список фильмов</h3>
-        <ul>
-            <li th:each="film : ${films}">
-                <span th:text="${film.title}">Название фильма</span>
-            </li>
-        </ul>
-    </section>
-
-    <!-- Список всех кинотеатров -->
-    <section>
-        <h3>Список кинотеатров</h3>
-        <ul>
-            <li th:each="cinema : ${cinemas}">
-                <span th:text="${cinema.name}">Название кинотеатра</span> -
-                <span th:text="${cinema.address}">Адрес кинотеатра</span>
-            </li>
-        </ul>
-    </section>
-
-    <!-- Новая секция для привязки фильма к кинотеатру -->
-    <section>
-        <h3>Привязка фильма к кинотеатру</h3>
-        <form th:action="@{/admin/link}" method="post">
-            <label for="filmSelect">Выберите фильм:</label>
-            <select id="filmSelect" name="filmId" required>
-                <option value="" disabled selected>Выберите фильм</option>
-                <option th:each="film : ${films}" th:value="${film.id}" th:text="${film.title}"></option>
-            </select>
-
-            <label for="cinemaSelect">Выберите кинотеатр:</label>
-            <select id="cinemaSelect" name="cinemaId" required>
-                <option value="" disabled selected>Выберите кинотеатр</option>
-                <option th:each="cinema : ${cinemas}" th:value="${cinema.id}" th:text="${cinema.name}"></option>
-            </select>
-
-            <button type="submit">Привязать</button>
-        </form>
-    </section>
-
-
+    <p><a th:href="@{/cinema}" href="/cinema">Управление кинотеатрами</a></p>
+    <p><a th:href="@{/film}" href="/film">Управление фильмами</a></p>
+    <p><a th:href="@{/filmsession}" href="/filmsession">Управление сеансами</a></p>
 
 
 </main>

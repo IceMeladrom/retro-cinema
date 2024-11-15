@@ -11,6 +11,9 @@
 <body>
 <header th:replace="~{base :: header}"></header>
 <main>
+    <p><a href="/admin/dashboard">Назад</a></p>
+    <span th:if="${savedCinema != null}" th:text="'Добавлен новый кинотеатр - ' + ${savedCinema.name}"
+          style="color: green">Добавлен новый кинотеатр</span>
     <h2>Добавить новый кинотеатр</h2>
     <form th:action="@{/cinema}" method="post">
         <div id="cinema-form">
@@ -21,14 +24,25 @@
             <input type="text" id="cinema-address" name="address" required>
 
             <label for="cinema-hall">Количество залов: </label>
-            <input type="number" min="1" oninput="validity.valid||(value='');" id="cinema-hall" name="numberOfHalls" required>
+            <input type="number" min="1" oninput="validity.valid||(value='');" id="cinema-hall" name="numberOfHalls"
+                   required>
 
 
         </div>
         <button type="submit">Добавить</button>
     </form>
+
+    <!-- Список всех кинотеатров -->
+    <section>
+        <h3>Список кинотеатров</h3>
+        <ul th:if="${cinemas != null}">
+            <li th:each="cinema : ${cinemas}">
+                <a th:href="@{/cinema/{id}(id=${cinema.id})}" th:text="${cinema.name} + ' - ' + ${cinema.address}"></a>
+            </li>
+        </ul>
+    </section>
 </main>
 <footer th:replace="~{base :: footer}"></footer>
-<script src="../static/js/script.js" th:src="@{/js/script.js}"></script>
+<script src="../static/js/hallAdding.js" th:src="@{/js/hallAdding.js}"></script>
 </body>
 </html>

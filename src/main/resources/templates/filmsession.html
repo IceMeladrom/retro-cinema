@@ -1,0 +1,48 @@
+<!-- src/main/resources/templates/login.html -->
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Управление кинотеатрами - СОВРЕМЕННИК</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" th:href="@{/css/style.css}">
+</head>
+<body>
+<header th:replace="~{base :: header}"></header>
+<main>
+    <p><a href="/admin/dashboard">Назад</a></p>
+    <section>
+        <h3>Создать новый сеанс</h3>
+        <form th:action="@{/filmsession}" method="post">
+            <label for="cinemaSelect">Выберите кинотеатр:</label>
+            <select id="cinemaSelect" name="cinemaId" required>
+                <option value="" disabled selected>Выберите кинотеатр</option>
+                <option th:each="cinema : ${cinemas}" th:value="${cinema.id}" th:text="${cinema.name}"></option>
+            </select>
+
+            <label for="hallNumber">Выберите зал:</label>
+            <input type="number" id="hallNumber" name="hallNumber" required min="1"
+                   oninput="validity.valid||(value='');">
+
+            <label for="filmSelect">Выберите фильм:</label>
+            <select id="filmSelect" name="filmId" required>
+                <option value="" disabled selected>Выберите фильм</option>
+                <option th:each="film : ${films}" th:value="${film.id}" th:text="${film.title}"></option>
+            </select>
+
+            <label for="startOfSession">Дата и время начала сеанса: </label>
+            <input type="datetime-local" id="startOfSession" name="startOfSession">
+
+            <button type="submit">Привязать</button>
+        </form>
+    </section>
+
+    <section>
+        Посмотреть все сеансы можно на вкладке "Афиша"
+    </section>
+
+</main>
+<footer th:replace="~{base :: footer}"></footer>
+</body>
+</html>

@@ -4,11 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.bmstu.retro_cinema.enums.Genre;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "film")
@@ -29,19 +27,25 @@ public class Film {
 
     @Column
     private LocalDate releaseDate; // Дата выхода
-//
-//    @ManyToMany(mappedBy = "films")
-//    private List<Cinema> cinemas;
-
-    @Column
-    private Double rating; // Рейтинг фильма
-
-    @Column
-    private String director; // Режиссер фильма
 
     @Column
     private Integer duration; // Продолжительность в минутах
 
-    @Column
-    private String country; // Страна производства
+    // Связь с кинотеатрами, где показывают этот фильм
+    @ManyToMany
+    @JoinTable(
+            name = "film_cinema",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "cinema_id")
+    )
+    private List<Cinema> cinemas;
+
+    // Связь с сеансами, где показывают этот фильм
+    @ManyToMany
+    @JoinTable(
+            name = "film_film-sessions",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "filmSession_id")
+    )
+    private List<Cinema> filmSessions;
 }

@@ -27,14 +27,9 @@ public class Cinema {
     @Column(nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "cinema", orphanRemoval = true)
-    private Set<Hall> halls;
-//
-//    @ManyToMany
-//    @JoinTable(
-//            name = "cinema_film",
-//            joinColumns = @JoinColumn(name = "cinema_id"),
-//            inverseJoinColumns = @JoinColumn(name = "film_id")
-//    )
-//    private List<Film> films;
+    @Column(nullable = false)
+    private int numberOfHalls;
+
+    @OneToMany(mappedBy = "cinema", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Hall> halls;
 }
