@@ -17,6 +17,10 @@ import java.util.List;
 public class FilmService {
     private FilmRepository filmRepository;
 
+    public int getNumberOfFilms() {
+        return filmRepository.findAll().size();
+    }
+
     public FilmDto create(FilmDto filmDto) {
         Film film = FilmDto.fromDto(filmDto);
         FilmDto savedFilmDto = FilmDto.toDto(filmRepository.save(film));

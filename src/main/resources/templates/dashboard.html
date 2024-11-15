@@ -18,6 +18,19 @@
     <p><a th:href="@{/film}" href="/film">Управление фильмами</a></p>
     <p><a th:href="@{/filmsession}" href="/filmsession">Управление сеансами</a></p>
 
+    <section>
+        <p>Самые популярные фильмы</p>
+        <ul>
+            <li th:each="film: ${popularFilms}" th:text="'Фильм - ' + ${film[0]} + ' / Куплено билетов - ' + ${film[1]}"></li>
+        </ul>
+    </section>
+
+    <section>
+        <p>Самые непопулярные фильмы</p>
+        <ul>
+            <li th:each="film: ${unpopularFilms}" th:text="'Фильм - ' + ${film[0]} + ' / Куплено билетов - ' + ${film[1]}"></li>
+        </ul>
+    </section>
 
 </main>
 <footer th:replace="~{base :: footer}"></footer>
