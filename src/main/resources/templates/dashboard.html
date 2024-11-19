@@ -1,6 +1,5 @@
-<!-- src/main/resources/templates/index.html -->
 <!DOCTYPE html>
-<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,11 +11,19 @@
 <header th:replace="~{base :: header}"></header>
 <main>
     <h3 th:if="@{message}" th:text="${message}" style="color: green;"></h3>
-    <h2>Это админская панель</h2>
+    <h2>Это панель управления</h2>
 
-    <p><a th:href="@{/cinema}" href="/cinema">Управление кинотеатрами</a></p>
-    <p><a th:href="@{/film}" href="/film">Управление фильмами</a></p>
-    <p><a th:href="@{/filmsession}" href="/filmsession">Управление сеансами</a></p>
+    <p><a sec:authorize="hasAnyRole('SUPERADMIN','ADMIN')" th:href="@{/cinema}" href="/cinema">Управление кинотеатрами</a></p>
+    <p><a sec:authorize="hasAnyRole('SUPERADMIN', 'DISTRIBUTOR')" th:href="@{/film}" href="/film">Управление фильмами</a></p>
+    <p><a sec:authorize="hasAnyRole('SUPERADMIN','ADMIN')" th:href="@{/filmsession}" href="/filmsession">Управление сеансами</a></p>
+    <p><a sec:authorize="hasAnyRole('SUPERADMIN', 'ADMIN', 'CASHIER')" th:href="@{/ticket/info}" href="/ticket/info">Заказы</a></p>
+
+    <section>
+        <p>Список фильмов</p>
+        <ul>
+            <li th:each="film: ${films}" th:text="${film.title}"></li>
+        </ul>
+    </section>
 
     <section>
         <p>Самые популярные фильмы</p>

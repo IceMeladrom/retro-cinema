@@ -11,7 +11,7 @@ import ru.bmstu.retro_cinema.service.FilmService;
 import java.time.format.DateTimeFormatter;
 
 @Controller
-@RequestMapping("film")
+@RequestMapping("/film")
 @RequiredArgsConstructor
 public class FilmController {
     private final FilmService filmService;

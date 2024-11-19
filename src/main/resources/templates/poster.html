@@ -13,13 +13,8 @@
 <main>
     <h2>Это афиша</h2>
     <ul>
-        <li th:each="filmSession : ${filmSessions}">
-            <p th:text="'Фильм: ' + ${filmSession.film.title}">Фильм: FilmExample</p>
-            <p th:text="'Кинотеатр: ' + ${filmSession.cinema.name}">Кинотеатр: CinemaExample</p>
-            <p th:text="'Адрес: ' + ${filmSession.cinema.address}">Адрес кинотеатра: AddressExample</p>
-            <p th:text="'Дата и время сеанса: ' + ${#temporals.format(filmSession.startOfSession, 'dd MMMM yyyy HH:mm', new java.util.Locale('ru', 'RU'))}">Дата и время сеанса: AddressExample</p>
-            <a th:href="@{/ticket/buy/{filmSessionId}(filmSessionId=${filmSession.id})}">Купить билет</a>
-            <br/>
+        <li th:each="film: ${films}">
+            <a th:href="@{/poster/{filmId}(filmId=${film.id})}" th:text="${film.title}"></a>
         </li>
     </ul>
 </main>

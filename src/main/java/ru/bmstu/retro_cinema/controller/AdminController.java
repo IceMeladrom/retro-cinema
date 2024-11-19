@@ -31,31 +31,4 @@ public class AdminController {
 
         return "dashboard";
     }
-
-//    @PostMapping("/add/film")
-//    public String addFilm(@ModelAttribute FilmDto filmDto, Model model) {
-//        Film film = filmService.add(FilmDto.fromDto(filmDto));
-//        model.addAttribute("message", "Фильм добавлен успешно!");
-//        return "redirect:/admin/dashboard";
-//    }
-
-//    @PostMapping("/add/cinema")
-//    public String addCinema(@ModelAttribute CinemaDto cinemaDto, Model model) {
-//        Cinema cinema = cinemaService.add(CinemaDto.fromDto(cinemaDto));
-//        model.addAttribute("message", "Кинотеатр добавлен успешно!");
-//        return "redirect:/admin/dashboard";
-//    }
-
-    @PostMapping("/link")
-    public String linkFilmToCinema(@RequestParam Long filmId, @RequestParam Long cinemaId, RedirectAttributes redirectAttributes) {
-        ResponseEntity<String> response = filmSessionService.createSession(filmId, cinemaId);
-
-        if (response.getStatusCode().isSameCodeAs(HttpStatus.CONFLICT)) {
-            redirectAttributes.addFlashAttribute("message", "Данный фильм уже есть в этом кинотеатре!");
-            return "redirect:/admin/dashboard"; // Перенаправление на ту же страницу с сообщением
-        }
-
-        redirectAttributes.addFlashAttribute("message", "Фильм успешно добавлен в кинотеатр!");
-        return "redirect:/admin/dashboard";
-    }
 }

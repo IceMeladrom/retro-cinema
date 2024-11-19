@@ -2,7 +2,9 @@ package ru.bmstu.retro_cinema.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,11 +16,13 @@ import ru.bmstu.retro_cinema.repository.*;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class FilmSessionService {
+    @Autowired
     private final FilmSessionRepository filmSessionRepository;
     private final CinemaRepository cinemaRepository;
     private final HallRepository hallRepository;
@@ -76,5 +80,9 @@ public class FilmSessionService {
             occupiedSeats[seat.getRow() - 1][seat.getSeat() - 1] = true;
 
         return occupiedSeats;
+    }
+
+    public List<FilmSession> getSessionsByFilm(Long filmId, Sort sort) {
+        return filmSessionRepository.findByFilmId(filmId, sort);
     }
 }

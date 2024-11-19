@@ -1,7 +1,9 @@
 package ru.bmstu.retro_cinema.repository;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import ru.bmstu.retro_cinema.entity.Film;
 import ru.bmstu.retro_cinema.entity.FilmSession;
 
 import java.time.ZonedDateTime;
@@ -10,6 +12,8 @@ import java.util.Optional;
 
 @Repository
 public interface FilmSessionRepository extends JpaRepository<FilmSession, Long> {
+    List<FilmSession> findAll(Sort sort);
+
     Optional<FilmSession> findById(Long id);
 
     List<FilmSession> findByFilmIdAndCinemaId(Long filmId, Long cinemaId);
@@ -17,6 +21,8 @@ public interface FilmSessionRepository extends JpaRepository<FilmSession, Long> 
     List<FilmSession> findByCinemaId(Long cinemaId);
 
     List<FilmSession> findByFilmId(Long filmId);
+
+    List<FilmSession> findByFilmId(Long filmId, Sort sort);
 
     List<FilmSession> findByStartOfSession(ZonedDateTime startOfSession);
 

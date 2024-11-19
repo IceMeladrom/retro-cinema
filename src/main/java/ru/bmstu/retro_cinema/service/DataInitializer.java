@@ -16,6 +16,7 @@ import ru.bmstu.retro_cinema.repository.UserRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 import java.util.stream.Stream;
 
 @Component
@@ -29,21 +30,41 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        if (userRepository.findByUsername("superadmin").isEmpty()) {
+            User superAdminUser = new User();
+            superAdminUser.setUsername("superadmin");
+            superAdminUser.setPassword(passwordEncoder.encode("superadmin"));
+            superAdminUser.setEmail("superadmin@sovremenhik.com");
+            superAdminUser.setRoles(Collections.singleton(Role.SUPERADMIN));
+
+            userRepository.save(superAdminUser);
+        }
+
         if (userRepository.findByUsername("admin").isEmpty()) {
             User adminUser = new User();
             adminUser.setUsername("admin");
             adminUser.setPassword(passwordEncoder.encode("admin"));
-            adminUser.setEmail("admin@admin.com");
+            adminUser.setEmail("admin@sovremenhik.com");
             adminUser.setRoles(Collections.singleton(Role.ADMIN));
 
             userRepository.save(adminUser);
+        }
+
+        if (userRepository.findByUsername("distributor").isEmpty()) {
+            User distributorUser = new User();
+            distributorUser.setUsername("distributor");
+            distributorUser.setPassword(passwordEncoder.encode("distributor"));
+            distributorUser.setEmail("distributor@sovremenhik.com");
+            distributorUser.setRoles(Collections.singleton(Role.DISTRIBUTOR));
+
+            userRepository.save(distributorUser);
         }
 
         if (userRepository.findByUsername("cashier").isEmpty()) {
             User cashierUser = new User();
             cashierUser.setUsername("cashier");
             cashierUser.setPassword(passwordEncoder.encode("cashier"));
-            cashierUser.setEmail("cashier@cashier.com");
+            cashierUser.setEmail("cashier@sovremenhik.com");
             cashierUser.setRoles(Collections.singleton(Role.CASHIER));
 
             userRepository.save(cashierUser);
@@ -115,30 +136,35 @@ public class DataInitializer implements CommandLineRunner {
         drive_karo10_session.setCinema(karo10);
         drive_karo10_session.setHall(karo10.getHalls().getFirst());
         drive_karo10_session.setStartOfSession(LocalDateTime.now());
+        drive_karo10_session.setPrice(500);
 
         FilmSession americanPsycho_karo10_session = new FilmSession();
         americanPsycho_karo10_session.setFilm(americanPsycho);
         americanPsycho_karo10_session.setCinema(karo10);
         americanPsycho_karo10_session.setHall(karo10.getHalls().get(1));
         americanPsycho_karo10_session.setStartOfSession(LocalDateTime.now().plusDays(1));
+        americanPsycho_karo10_session.setPrice(300);
 
         FilmSession fightClub_karo11_session = new FilmSession();
         fightClub_karo11_session.setFilm(fightClub);
         fightClub_karo11_session.setCinema(karo11);
         fightClub_karo11_session.setHall(karo11.getHalls().getFirst());
         fightClub_karo11_session.setStartOfSession(LocalDateTime.now().plusDays(2));
+        fightClub_karo11_session.setPrice(333);
 
         FilmSession americanPsycho_karo11_session = new FilmSession();
         americanPsycho_karo11_session.setFilm(americanPsycho);
         americanPsycho_karo11_session.setCinema(karo11);
         americanPsycho_karo11_session.setHall(karo11.getHalls().get(1));
         americanPsycho_karo11_session.setStartOfSession(LocalDateTime.now().plusDays(3));
+        americanPsycho_karo10_session.setPrice(712);
 
         FilmSession drive_karo11_session = new FilmSession();
         drive_karo11_session.setFilm(drive);
         drive_karo11_session.setCinema(karo11);
         drive_karo11_session.setHall(karo11.getHalls().get(2));
         drive_karo11_session.setStartOfSession(LocalDateTime.now().plusDays(4));
+        drive_karo11_session.setPrice(450);
 
         filmSessionRepository.save(drive_karo10_session);
         filmSessionRepository.save(drive_karo11_session);

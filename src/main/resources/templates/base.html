@@ -1,7 +1,7 @@
 <!-- src/main/resources/templates/base.html -->
 <!DOCTYPE html>
 <html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:fragment="head">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,7 +23,7 @@
     </nav>
     <div class="login-link">
         <span sec:authorize-url="/admin">
-            <a th:href="@{/admin/dashboard}">Панель администратора</a> <!-- Ссылка на админскую панель -->
+            <a th:href="@{/admin/dashboard}">Панель управления</a> <!-- Ссылка на админскую панель -->
         </span>
         <!-- Проверка, аутентифицирован ли пользователь с использованием sec:authorize -->
         <span sec:authorize="isAuthenticated()">

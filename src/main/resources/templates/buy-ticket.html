@@ -1,12 +1,40 @@
-<!-- src/main/resources/templates/index.html -->
 <!DOCTYPE html>
 <html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${title}">Афиша - СОВРЕМЕННИК</title>
+    <title>Афиша - СОВРЕМЕННИК</title>
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" th:href="@{/css/style.css}">
+    <script>
+        function countCheckedCheckboxes() {
+            // Получаем все чекбоксы на странице
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            let count = 0;
+
+            // Проходим по всем чекбоксам и проверяем, отмечены ли они
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    count++;
+                }
+            });
+
+            // Выводим количество отмеченных чекбоксов
+            document.getElementById('selectedSeats').textContent = 'Выбрано мест: ' + count;
+            document.getElementById('price').textContent = 'Итоговая стоимость: ' + count * 333;
+        }
+
+        // Функция будет вызываться каждый раз, когда изменяется состояние чекбоксов
+        window.addEventListener('DOMContentLoaded', (event) => {
+            // Слушаем изменения состояния чекбоксов
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', countCheckedCheckboxes);
+            });
+
+            // Подсчитываем начальное количество активных чекбоксов
+            countCheckedCheckboxes();
+        });
+    </script>
 </head>
 <body>
 <header th:replace="~{base :: header}"></header>
@@ -30,6 +58,9 @@
         <button>Купить</button>
     </form>
 
+    <!-- Вывод количества выбранных мест -->
+    <p id="selectedSeats">Выбрано мест: 0</p>
+    <p id="price">Итоговая стоимость: 0</p>
 </main>
 <footer th:replace="~{base :: footer}"></footer>
 </body>
