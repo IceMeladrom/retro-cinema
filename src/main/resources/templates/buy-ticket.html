@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Афиша - СОВРЕМЕННИК</title>
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" th:href="@{/css/style.css}">
-    <script>
+    <script th:inline="javascript">
         function countCheckedCheckboxes() {
             // Получаем все чекбоксы на странице
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -21,7 +21,7 @@
 
             // Выводим количество отмеченных чекбоксов
             document.getElementById('selectedSeats').textContent = 'Выбрано мест: ' + count;
-            document.getElementById('price').textContent = 'Итоговая стоимость: ' + count * 333;
+            document.getElementById('price').textContent = 'Итоговая стоимость: ' + count * [[${price}]];
         }
 
         // Функция будет вызываться каждый раз, когда изменяется состояние чекбоксов

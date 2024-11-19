@@ -16,7 +16,7 @@
     <p><a sec:authorize="hasAnyRole('SUPERADMIN','ADMIN')" th:href="@{/cinema}" href="/cinema">Управление кинотеатрами</a></p>
     <p><a sec:authorize="hasAnyRole('SUPERADMIN', 'DISTRIBUTOR')" th:href="@{/film}" href="/film">Управление фильмами</a></p>
     <p><a sec:authorize="hasAnyRole('SUPERADMIN','ADMIN')" th:href="@{/filmsession}" href="/filmsession">Управление сеансами</a></p>
-    <p><a sec:authorize="hasAnyRole('SUPERADMIN', 'ADMIN', 'CASHIER')" th:href="@{/ticket/info}" href="/ticket/info">Заказы</a></p>
+    <p><a sec:authorize="hasAnyRole('SUPERADMIN', 'ADMIN', 'CASHIER')" th:href="@{/ticket/orders}" href="/ticket/orders">Заказы</a></p>
 
     <section>
         <p>Список фильмов</p>

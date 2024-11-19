@@ -23,17 +23,47 @@
         <br>
     </div>
     <hr>
-    <h2>Последние купленные билеты</h2>
-    <div th:each="ticket : ${allTickets}">
-        <p th:text="'Уникальный номер билета: ' + ${ticket.id}"></p>
-        <p th:text="'Кинотеатр: ' + ${ticket.cinemaName}"></p>
-        <p th:text="'Адрес кинотеатра: ' + ${ticket.cinemaAddress}"></p>
-        <p th:text="'Фильм: ' + ${ticket.filmTitle}"></p>
-        <p th:text="'Начало сеанса: ' + ${#temporals.format(ticket.startOfSession, 'dd MMMM yyyy HH:mm', new java.util.Locale('ru', 'RU'))}">
-        <p th:text="'Ряд: ' + ${ticket.rowNumber}"></p>
-        <p th:text="'Место: ' + ${ticket.seatNumber}"></p>
-        <br>
-    </div>
+    <h2>Заказы</h2>
+    <table>
+        <tr>
+            <th>Номер</th>
+            <th>Фильм</th>
+            <th>Кинотеатр</th>
+            <th>Дата</th>
+            <th>Ряд</th>
+            <th>Место</th>
+        </tr>
+        <tr th:each="ticket : ${tickets}">
+            <td th:text="${ticket.id}"></td>
+            <td th:text="${ticket.filmTitle}"></td>
+            <td th:text="${ticket.cinemaName}"></td>
+            <td th:text="${#temporals.format(ticket.startOfSession, 'dd MMMM yyyy HH:mm', new java.util.Locale('ru', 'RU'))}"></td>
+            <td th:text="${ticket.rowNumber}"></td>
+            <td th:text="${ticket.seatNumber}"></td>
+            <td><a th:href="@{/ticket/return/{ticketId}(ticketId=${ticket.id})}">Вернуть</a></td>
+        </tr>
+    </table>
+    <hr>
+    <h2>Возвраты</h2>
+    <table>
+        <tr>
+            <th>Номер</th>
+            <th>Фильм</th>
+            <th>Кинотеатр</th>
+            <th>Дата</th>
+            <th>Ряд</th>
+            <th>Место</th>
+        </tr>
+        <tr th:each="refund : ${refunds}">
+            <td th:text="${refund.id}"></td>
+            <td th:text="${refund.filmTitle}"></td>
+            <td th:text="${refund.cinemaName}"></td>
+            <td th:text="${#temporals.format(refund.startOfSession, 'dd MMMM yyyy HH:mm', new java.util.Locale('ru', 'RU'))}"></td>
+            <td th:text="${refund.rowNumber}"></td>
+            <td th:text="${refund.seatNumber}"></td>
+        </tr>
+    </table>
+
 
 </main>
 <footer th:replace="~{base :: footer}"></footer>

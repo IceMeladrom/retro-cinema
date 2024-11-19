@@ -21,6 +21,10 @@ public class Seat {
     @Column(nullable = false)
     private Integer seat;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "ticket_id", referencedColumnName = "id", unique = true)
+    private Ticket ticket;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "film_session_id", referencedColumnName = "id", nullable = false)
     private FilmSession filmSession;

@@ -6,9 +6,9 @@ import lombok.Data;
 import java.util.UUID;
 
 @Entity
-@Table(name = "ticket")
+@Table(name = "refund")
 @Data
-public class Ticket {
+public class Refund {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -22,8 +22,4 @@ public class Ticket {
 
     @Column
     private Integer seatNumber;
-
-    @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Seat seat;
-
 }

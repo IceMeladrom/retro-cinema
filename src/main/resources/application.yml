@@ -16,9 +16,9 @@ spring:
     password: postgres
     driverClassName: org.postgresql.Driver
 
-logging:
-  level:
-    org:
-      springframework:
-        web: TRACE
-      hibernate: TRACE
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        web: TRACE
+#      hibernate: TRACE
