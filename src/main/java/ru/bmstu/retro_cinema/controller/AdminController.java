@@ -1,15 +1,11 @@
 package ru.bmstu.retro_cinema.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.bmstu.retro_cinema.service.CinemaService;
 import ru.bmstu.retro_cinema.service.FilmService;
-import ru.bmstu.retro_cinema.service.FilmSessionService;
 import ru.bmstu.retro_cinema.service.StatisticsService;
 
 @Controller
@@ -18,8 +14,8 @@ import ru.bmstu.retro_cinema.service.StatisticsService;
 public class AdminController {
     private final FilmService filmService;
     private final CinemaService cinemaService;
-    private final FilmSessionService filmSessionService;
     private final StatisticsService statisticsService;
+
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
         model.addAttribute("films", filmService.readAll());

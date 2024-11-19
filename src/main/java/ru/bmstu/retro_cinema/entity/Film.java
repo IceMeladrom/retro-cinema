@@ -20,32 +20,14 @@ public class Film {
     private Long id;
 
     @Column(nullable = false)
-    private String title; // Название фильма
+    private String title;
 
     @Column(length = 1000)
-    private String description; // Описание фильма
+    private String description;
 
     @Column
-    private LocalDate releaseDate; // Дата выхода
+    private LocalDate releaseDate;
 
     @Column
-    private Integer duration; // Продолжительность в минутах
-
-    // Связь с кинотеатрами, где показывают этот фильм
-    @ManyToMany
-    @JoinTable(
-            name = "film_cinema",
-            joinColumns = @JoinColumn(name = "film_id"),
-            inverseJoinColumns = @JoinColumn(name = "cinema_id")
-    )
-    private List<Cinema> cinemas;
-
-    // Связь с сеансами, где показывают этот фильм
-    @ManyToMany
-    @JoinTable(
-            name = "film_film-sessions",
-            joinColumns = @JoinColumn(name = "film_id"),
-            inverseJoinColumns = @JoinColumn(name = "filmSession_id")
-    )
-    private List<FilmSession> filmSessions;
+    private Integer duration;
 }

@@ -26,7 +26,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/login", "/static/**", "/css/**", "/js/**", "/poster", "/poster/**").permitAll()
-                        .requestMatchers("/registration", "/admin/**", "/cinema/**").hasAnyRole(Role.SUPERADMIN.name(), Role.ADMIN.name())
+                        .requestMatchers("/registration", "/cinema/**").hasAnyRole(Role.SUPERADMIN.name(), Role.ADMIN.name())
                         .requestMatchers("/film/**").hasAnyRole(Role.SUPERADMIN.name(), Role.DISTRIBUTOR.name())
                         .requestMatchers("/ticket/**").hasAnyRole(Role.SUPERADMIN.name(), Role.ADMIN.name(), Role.CASHIER.name())
                         .anyRequest().authenticated()

@@ -18,6 +18,7 @@
         <ul>
             <li><a th:href="@{/}">Главная</a></li>
             <li><a th:href="@{/poster}">Афиша</a></li>
+            <li><a sec:authorize="hasAnyRole('SUPERADMIN', 'ADMIN', 'CASHIER')" th:href="@{/ticket/orders}">Заказы</a></li>
 <!--            <li><a th:href="@{/contacts}">Контакты</a></li>-->
         </ul>
     </nav>

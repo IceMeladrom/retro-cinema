@@ -59,6 +59,7 @@ public class FilmSessionService {
         filmSession.setHall(hallRepository.findByCinemaIdAndHallNumber(filmSessionDto.getCinemaId(), filmSessionDto.getHallNumber()).orElseThrow(EntityNotFoundException::new));
         filmSession.setFilm(filmRepository.findById(filmSessionDto.getFilmId()).orElseThrow(EntityNotFoundException::new));
         filmSession.setStartOfSession(filmSessionDto.getStartOfSession());
+        filmSession.setPrice(filmSessionDto.getPrice());
         filmSessionRepository.save(filmSession);
         return new ResponseEntity<>(filmSessionDto, HttpStatus.CREATED);
     }

@@ -38,6 +38,6 @@ public class FilmSessionController {
     public String createFilmSession(@ModelAttribute FilmSessionDto filmSessionDto) {
         filmSessionService.createSession(filmSessionDto);
         System.out.println(filmSessionDto);
-        return "redirect:/";
+        return "redirect:/filmsession";
     }
 }

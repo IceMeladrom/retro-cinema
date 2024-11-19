@@ -46,13 +46,13 @@ function hallsSize(){
         newHall.appendChild(hallColInput);
 
         let hallNumberHiddenInput = document.createElement('input');
-        hallColInput.setAttribute('type', 'hidden');
-        hallColInput.setAttribute('id', `halls[${i}].hallNumber`);
-        hallColInput.setAttribute('name', `halls[${i}].hallNumber`);
-        hallColInput.setAttribute('value', `${i + 1}`);
-        hallColInput.setAttribute('required', 'true');
-        hallColInput.setAttribute('min', '1');
-        hallColInput.setAttribute('oninput', 'validity.valid||(value="");');
+        hallNumberHiddenInput.setAttribute('type', 'hidden');
+        hallNumberHiddenInput.setAttribute('id', `halls[${i}].hallNumber`);
+        hallNumberHiddenInput.setAttribute('name', `halls[${i}].hallNumber`);
+        hallNumberHiddenInput.setAttribute('value', `${i + 1}`);
+        hallNumberHiddenInput.setAttribute('required', 'true');
+        hallNumberHiddenInput.setAttribute('min', '1');
+        hallNumberHiddenInput.setAttribute('oninput', 'validity.valid||(value="");');
 
         newHall.appendChild(hallNumberHiddenInput);
 

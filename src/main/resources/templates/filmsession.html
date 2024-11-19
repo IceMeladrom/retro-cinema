@@ -34,6 +34,10 @@
             <label for="startOfSession">Дата и время начала сеанса: </label>
             <input type="datetime-local" id="startOfSession" name="startOfSession">
 
+            <label for="price">Цена билета на сеанс: </label>
+            <input type="number" id="price" name="price" required min="1"
+                   oninput="validity.valid||(value='');">
+
             <button type="submit">Привязать</button>
         </form>
     </section>

@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 public class FilmSessionDto {
     private Long cinemaId;
     private Integer hallNumber;
+    private Integer price;
     private Long filmId;
     private LocalDateTime startOfSession;
 
@@ -23,6 +24,7 @@ public class FilmSessionDto {
         filmSessionDto.setHallNumber(filmSessionDto.getHallNumber());
         filmSessionDto.setFilmId(filmSessionDto.getFilmId());
         filmSessionDto.setStartOfSession(filmSession.getStartOfSession());
+        filmSessionDto.setPrice(filmSessionDto.getPrice());
         return filmSessionDto;
     }
 }
