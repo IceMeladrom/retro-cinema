@@ -5,36 +5,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${title}">Афиша - СОВРЕМЕННИК</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&family=Russo+One&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" th:href="@{/css/style.css}">
 </head>
 <body>
 <header th:replace="~{base :: header}"></header>
-<form method="get" th:action="@{/poster/{filmId}(filmId=${filmId})}">
-    <label for="sortBy">Сортировать по:</label>
-    <select name="sortBy" id="sortBy">
-        <option value="startOfSession">Дате</option>
-        <option value="film.title">Названию</option>
-    </select>
+<main class="session-selection-container">
+    <form method="get" th:action="@{/poster/{filmId}(filmId=${filmId})}" class="sort-form">
+        <div class="sort-option">
+            <label for="sortBy">Сортировать по:</label>
+            <select name="sortBy" id="sortBy" class="sort-select">
+                <option value="startOfSession">Дате</option>
+                <option value="film.title">Названию</option>
+            </select>
+        </div>
 
-    <label for="direction">Направление:</label>
-    <select name="direction" id="direction">
-        <option value="asc">По возрастанию</option>
-        <option value="desc">По убыванию</option>
-    </select>
+        <div class="sort-option">
+            <label for="direction">Направление:</label>
+            <select name="direction" id="direction" class="sort-select">
+                <option value="asc">По возрастанию</option>
+                <option value="desc">По убыванию</option>
+            </select>
+        </div>
 
-    <button type="submit">Применить</button>
-</form>
-<ul>
-    <li th:each="filmSession : ${filmSessions}">
-        <p th:text="'Фильм: ' + ${filmSession.film.title}">Фильм: FilmExample</p>
-        <p th:text="'Кинотеатр: ' + ${filmSession.cinema.name}">Кинотеатр: CinemaExample</p>
-        <p th:text="'Адрес: ' + ${filmSession.cinema.address}">Адрес кинотеатра: AddressExample</p>
-        <p th:text="'Дата и время сеанса: ' + ${#temporals.format(filmSession.startOfSession, 'dd MMMM yyyy HH:mm', new java.util.Locale('ru', 'RU'))}">
-            Дата и время сеанса: DateTimeExample</p>
-        <a sec:authorize="hasAnyRole('CASHIER', 'SUPERADMIN')" th:href="@{/ticket/buy/{filmSessionId}(filmSessionId=${filmSession.id})}">Купить билет</a>
-        <br/>
-    </li>
-</ul>
-<footer th:replace="~{base :: footer}"></footer>
+        <button type="submit" class="sort-button">Применить</button>
+    </form>
+
+    <ul class="session-list">
+        <li th:each="filmSession : ${filmSessions}" class="session-item">
+            <div class="session-info">
+                <p class="session-title" th:text="'Фильм: ' + ${filmSession.film.title}">Фильм: FilmExample</p>
+                <p class="session-cinema" th:text="'Кинотеатр: ' + ${filmSession.cinema.name}">Кинотеатр: CinemaExample</p>
+                <p class="session-address" th:text="'Адрес: ' + ${filmSession.cinema.address}">Адрес кинотеатра: AddressExample</p>
+                <p class="session-time" th:text="'Дата и время сеанса: ' + ${#temporals.format(filmSession.startOfSession, 'dd MMMM yyyy HH:mm', new java.util.Locale('ru', 'RU'))}">
+                    Дата и время сеанса: DateTimeExample
+                </p>
+            </div>
+            <a sec:authorize="hasAnyRole('CASHIER', 'SUPERADMIN')" th:href="@{/ticket/buy/{filmSessionId}(filmSessionId=${filmSession.id})}" class="buy-ticket-link">
+                Купить билет
+            </a>
+        </li>
+    </ul>
+</main>
 </body>
 </html>

@@ -1,34 +1,30 @@
-<!-- src/main/resources/templates/registration.html -->
 <!DOCTYPE html>
 <html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${title}">Регистрация - СОВРЕМЕННИК</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css" th:href="@{/css/style.css}">
-</head>
+<head th:replace="base :: head"></head>
 <body>
 <header th:replace="~{base :: header}"></header>
-<main>
-    <h2>Создайте аккаунт</h2>
-    <form th:action="@{/registration}" method="post">
-        <div>
-            <label for="username">Логин:</label>
-            <input type="text" id="username" name="username" required>
-        </div>
-        <div>
-            <label for="email">Почта:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-            <label for="password">Пароль:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <button type="submit">Зарегистрироваться</button>
-    </form>
-    <p>Есть аккаунт? <a th:href="@{/login}">Войти</a></p>
+<main class="auth-container">
+    <div class="auth-box">
+        <h2 class="auth-title">Регистрация</h2>
+        <form th:action="@{/registration}" method="post" class="auth-form">
+            <div class="form-group">
+                <label for="username" class="form-label">Логин</label>
+                <input type="text" id="username" name="username" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="email" class="form-label">Почта</label>
+                <input type="email" id="email" name="email" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Пароль</label>
+                <input type="password" id="password" name="password" class="form-input" required>
+            </div>
+            <button type="submit" class="auth-button">Зарегистрироваться</button>
+        </form>
+        <p class="auth-switch">
+            Уже есть аккаунт? <a th:href="@{/login}" class="switch-link">Войти</a>
+        </p>
+    </div>
 </main>
-<footer th:replace="~{base :: footer}"></footer>
 </body>
 </html>

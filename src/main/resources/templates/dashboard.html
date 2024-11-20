@@ -5,41 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${title}">Админ панель - СОВРЕМЕННИК</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&family=Russo+One&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" th:href="@{/css/style.css}">
 </head>
 <body>
 <header th:replace="~{base :: header}"></header>
-<main>
-    <h3 th:if="@{message}" th:text="${message}" style="color: green;"></h3>
-    <h2>Это панель управления</h2>
+<main class="dashboard-container">
+    <h3 th:if="@{message}" th:text="${message}" class="dashboard-message"></h3>
+    <h2 class="dashboard-title">Это панель управления</h2>
 
-    <p><a sec:authorize="hasAnyRole('SUPERADMIN','ADMIN')" th:href="@{/cinema}" href="/cinema">Управление кинотеатрами</a></p>
-    <p><a sec:authorize="hasAnyRole('SUPERADMIN', 'DISTRIBUTOR')" th:href="@{/film}" href="/film">Управление фильмами</a></p>
-    <p><a sec:authorize="hasAnyRole('SUPERADMIN','ADMIN')" th:href="@{/filmsession}" href="/filmsession">Управление сеансами</a></p>
-    <p><a sec:authorize="hasAnyRole('SUPERADMIN', 'ADMIN', 'CASHIER')" th:href="@{/ticket/orders}" href="/ticket/orders">Заказы</a></p>
+    <div class="dashboard-links">
+        <p><a sec:authorize="hasAnyRole('SUPERADMIN','ADMIN')" th:href="@{/cinema}" href="/cinema" class="dashboard-link">Управление кинотеатрами</a></p>
+        <p><a sec:authorize="hasAnyRole('SUPERADMIN', 'DISTRIBUTOR')" th:href="@{/film}" href="/film" class="dashboard-link">Управление фильмами</a></p>
+        <p><a sec:authorize="hasAnyRole('SUPERADMIN','ADMIN')" th:href="@{/filmsession}" href="/filmsession" class="dashboard-link">Управление сеансами</a></p>
+        <p><a sec:authorize="hasAnyRole('SUPERADMIN', 'ADMIN', 'CASHIER')" th:href="@{/ticket/orders}" href="/ticket/orders" class="dashboard-link">Заказы</a></p>
+    </div>
 
-    <section>
-        <p>Список фильмов</p>
-        <ul>
-            <li th:each="film: ${films}" th:text="${film.title}"></li>
+    <section class="films-section">
+        <h3 class="section-title">Список фильмов</h3>
+        <ul class="films-list">
+            <li th:each="film: ${films}" th:text="${film.title}" class="film-item"></li>
         </ul>
     </section>
 
-    <section>
-        <p>Самые популярные фильмы</p>
-        <ul>
-            <li th:each="film: ${popularFilms}" th:text="'Фильм - ' + ${film[0]} + ' / Куплено билетов - ' + ${film[1]}"></li>
+    <section class="films-popularity">
+        <h3 class="section-title">Самые популярные фильмы</h3>
+        <h4 class="section-subtitle">которые есть в прокате</h4>
+        <ul class="films-list">
+            <li th:each="film: ${popularFilms}" th:text="'Фильм - ' + ${film[0]} + ' / Куплено билетов - ' + ${film[1]}" class="film-popularity-item"></li>
         </ul>
     </section>
 
-    <section>
-        <p>Самые непопулярные фильмы</p>
-        <ul>
-            <li th:each="film: ${unpopularFilms}" th:text="'Фильм - ' + ${film[0]} + ' / Куплено билетов - ' + ${film[1]}"></li>
+    <section class="films-popularity">
+        <h3 class="section-title">Самые непопулярные фильмы</h3>
+        <h4 class="section-subtitle">которые есть в прокате</h4>
+        <ul class="films-list">
+            <li th:each="film: ${unpopularFilms}" th:text="'Фильм - ' + ${film[0]} + ' / Куплено билетов - ' + ${film[1]}" class="film-popularity-item"></li>
         </ul>
     </section>
-
 </main>
-<footer th:replace="~{base :: footer}"></footer>
 </body>
 </html>

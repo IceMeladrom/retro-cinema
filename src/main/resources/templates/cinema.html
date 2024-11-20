@@ -1,48 +1,56 @@
-<!-- src/main/resources/templates/login.html -->
 <!DOCTYPE html>
 <html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${title}">Управление кинотеатрами - СОВРЕМЕННИК</title>
+    <title th:text="${title}">Админ панель - СОВРЕМЕННИК</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&family=Russo+One&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" th:href="@{/css/style.css}">
 </head>
 <body>
 <header th:replace="~{base :: header}"></header>
-<main>
-    <p><a href="/admin/dashboard">Назад</a></p>
-    <span th:if="${savedCinema != null}" th:text="'Добавлен новый кинотеатр - ' + ${savedCinema.name}"
-          style="color: green">Добавлен новый кинотеатр</span>
-    <h2>Добавить новый кинотеатр</h2>
-    <form th:action="@{/cinema}" method="post">
-        <div id="cinema-form">
-            <label for="cinema-name">Название кинотеатра: </label>
-            <input type="text" id="cinema-name" name="name" required>
+<main class="page-main">
+    <p><a href="/admin/dashboard" class="back-link">Назад</a></p>
+    <section class="form-section">
+        <span th:if="${savedCinema != null}" th:text="'Добавлен новый кинотеатр - ' + ${savedCinema.name}"
+              class="success-message">Добавлен новый кинотеатр</span>
+        <h2 class="section-title">Добавить новый кинотеатр</h2>
+        <form th:action="@{/cinema}" method="post" class="form">
+            <div id="cinema-form">
+                <div class="form-group">
+                    <label for="cinema-name" class="form-label">Название кинотеатра: </label>
+                    <input type="text" id="cinema-name" name="name" required class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="cinema-address" class="form-label">Адрес: </label>
+                    <input type="text" id="cinema-address" name="address" required class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="cinema-hall" class="form-label">Количество залов: </label>
+                    <input type="number" min="1" oninput="validity.valid||(value='');" id="cinema-hall"
+                           name="numberOfHalls" required class="form-input">
+                </div>
+            </div>
+            <br>
+            <button type="submit" class="form-button">Добавить</button>
+        </form>
+    </section>
 
-            <label for="cinema-address">Адрес: </label>
-            <input type="text" id="cinema-address" name="address" required>
-
-            <label for="cinema-hall">Количество залов: </label>
-            <input type="number" min="1" oninput="validity.valid||(value='');" id="cinema-hall" name="numberOfHalls"
-                   required>
-
-
-        </div>
-        <button type="submit">Добавить</button>
-    </form>
-
-    <!-- Список всех кинотеатров -->
-    <section>
-        <h3>Список кинотеатров</h3>
-        <ul th:if="${cinemas != null}">
-            <li th:each="cinema : ${cinemas}">
-                <a th:href="@{/cinema/{id}(id=${cinema.id})}" th:text="${cinema.name} + ' - ' + ${cinema.address}"></a>
+    <section class="list-section">
+        <h3 class="section-title">Список кинотеатров</h3>
+        <ul th:if="${cinemas != null}" class="cinema-list">
+            <li th:each="cinema : ${cinemas}" class="cinema-item">
+                <a th:href="@{/cinema/{id}(id=${cinema.id})}" class="cinema-link"
+                   th:text="${cinema.name} + ' - ' + ${cinema.address}"></a>
             </li>
         </ul>
     </section>
 </main>
-<footer th:replace="~{base :: footer}"></footer>
 <script src="../static/js/hallAdding.js" th:src="@{/js/hallAdding.js}"></script>
 </body>
 </html>

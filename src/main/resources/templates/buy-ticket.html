@@ -2,10 +2,14 @@
 <html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Афиша - СОВРЕМЕННИК</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css" th:href="@{/css/style.css}">
+    <title th:text="${title}">Афиша - СОВРЕМЕННИК</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&family=Russo+One&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap">
+    <link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}">
     <script th:inline="javascript">
         function countCheckedCheckboxes() {
             // Получаем все чекбоксы на странице
@@ -38,30 +42,37 @@
 </head>
 <body>
 <header th:replace="~{base :: header}"></header>
-<main>
-    <h2>Покупаем билет</h2>
-    <form th:action="'/ticket/buy/'+${filmSessionId}" method="post" >
-        <p th:text="'Фильм: ' + ${film.title}"></p>
-        <p th:text="'Дата и время сеанса: ' + ${#temporals.format(startOfSession, 'dd MMMM yyyy HH:mm', new java.util.Locale('ru', 'RU'))}">
-            Дата и время сеанса: 16 ноября 2024 15:30</p>
-        <p th:text="'Кинотеатр: ' + ${cinema.name}"></p>
-        <p th:text="'Номер зала: ' + ${hall.hallNumber}"></p>
-        <div>
-            <div th:each="i : ${#numbers.sequence(1, rows)}">
-                <input th:each="j : ${#numbers.sequence(1, seats)}"
-                       th:name="'seat;;'+${i}+';;'+${j}+''"
-                       th:disabled="${occupiedSeats[i-1][j-1]}"
-                       type="checkbox">
-            </div>
-            <p>---- Экран -----</p>
-        </div>
-        <button>Купить</button>
-    </form>
 
-    <!-- Вывод количества выбранных мест -->
-    <p id="selectedSeats">Выбрано мест: 0</p>
-    <p id="price">Итоговая стоимость: 0</p>
+<main class="buy-ticket">
+    <h2 class="buy-ticket__title">Покупка билета</h2>
+
+    <form th:action="'/ticket/buy/'+${filmSessionId}" method="post">
+        <div class="film-info">
+            <p class="film-info__title" th:text="'Фильм: ' + ${film.title}"></p>
+            <p class="film-info__session-time"
+               th:text="'Дата и время сеанса: ' + ${#temporals.format(startOfSession, 'dd MMMM yyyy HH:mm', new java.util.Locale('ru', 'RU'))}"></p>
+            <p class="film-info__cinema-name" th:text="'Кинотеатр: ' + ${cinema.name}"></p>
+            <p class="film-info__hall-number" th:text="'Номер зала: ' + ${hall.hallNumber}"></p>
+        </div>
+
+        <div class="seats-selection">
+            <div class="seats-selection__grid" th:each="i : ${#numbers.sequence(1, rows)}">
+                <div class="seats-selection__row">
+                    <input class="seat-checkbox" th:each="j : ${#numbers.sequence(1, seats)}"
+                           th:name="'seat;;'+${i}+';;'+${j}+''"
+                           th:disabled="${occupiedSeats[i-1][j-1]}"
+                           type="checkbox">
+                </div>
+            </div>
+            <p class="seats-selection__screen">---- Экран ----</p>
+        </div>
+
+        <div class="ticket-summary">
+            <p id="selectedSeats" class="ticket-summary__seats">Выбрано мест: 0</p>
+            <p id="price" class="ticket-summary__price">Итоговая стоимость: 0</p>
+            <button type="submit" class="ticket-summary__button">Купить</button>
+        </div>
+    </form>
 </main>
-<footer th:replace="~{base :: footer}"></footer>
 </body>
 </html>

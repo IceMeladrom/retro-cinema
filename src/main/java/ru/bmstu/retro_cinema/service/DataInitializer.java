@@ -1,15 +1,9 @@
 package ru.bmstu.retro_cinema.service;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 import ru.bmstu.retro_cinema.entity.*;
 import ru.bmstu.retro_cinema.enums.Role;
 import ru.bmstu.retro_cinema.repository.CinemaRepository;
@@ -20,8 +14,6 @@ import ru.bmstu.retro_cinema.repository.UserRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
-import java.util.stream.Stream;
 
 @Component
 @RequiredArgsConstructor
@@ -76,12 +68,15 @@ public class DataInitializer implements CommandLineRunner {
 
         Film drive = new Film();
         drive.setTitle("Драйв");
+        drive.setPathToPoster("img\\Drive2011Poster.jpg");
 
         Film americanPsycho = new Film();
         americanPsycho.setTitle("Американский психопат");
+        americanPsycho.setPathToPoster("img\\AmericanPsycho2000Poster.jpg");
 
         Film fightClub = new Film();
         fightClub.setTitle("Бойцовский клуб");
+        fightClub.setPathToPoster("img\\FightClub1999Poster.jpg");
 
         filmRepository.save(drive);
         filmRepository.save(americanPsycho);

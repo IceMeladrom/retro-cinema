@@ -30,4 +30,7 @@ public class Film {
 
     @Column
     private Integer duration;
+
+    @Column
+    private String pathToPoster;
 }

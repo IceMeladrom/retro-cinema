@@ -1,23 +1,29 @@
-<!-- src/main/resources/templates/index.html -->
 <!DOCTYPE html>
-<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${title}">Афиша - СОВРЕМЕННИК</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&family=Russo+One&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap">
+    <link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}">
 </head>
 <body>
 <header th:replace="~{base :: header}"></header>
-<main>
-    <h2>Это афиша</h2>
-    <ul>
-        <li th:each="film: ${films}">
-            <a th:href="@{/poster/{filmId}(filmId=${film.id})}" th:text="${film.title}"></a>
-        </li>
-    </ul>
+<main class="poster-container">
+    <h2 class="poster-title">Афиша фильмов</h2>
+    <div class="films-grid">
+        <div class="film-card" th:each="film: ${films}">
+            <a th:href="@{/poster/{filmId}(filmId=${film.id})}" class="film-link">
+                <img th:src="@{${film.pathToPoster}}" alt="Постер" class="film-image">
+<!--                <img src="/img/film-poster-3.jpg"  alt="Постер" class="film-image">-->
+            </a>
+            <a th:href="@{/poster/{filmId}(filmId=${film.id})}" class="film-title" th:text="${film.title}"></a>
+        </div>
+    </div>
 </main>
-<footer th:replace="~{base :: footer}"></footer>
 </body>
 </html>

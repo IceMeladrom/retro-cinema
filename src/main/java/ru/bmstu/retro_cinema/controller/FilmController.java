@@ -4,10 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.bmstu.retro_cinema.dto.FilmDto;
 import ru.bmstu.retro_cinema.entity.Film;
 import ru.bmstu.retro_cinema.service.FilmService;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.time.format.DateTimeFormatter;
 
 @Controller
@@ -25,8 +28,8 @@ public class FilmController {
     }
 
     @PostMapping
-    public String createFilm(@ModelAttribute FilmDto filmDto) {
-        filmService.create(filmDto);
+    public String createFilm(@ModelAttribute FilmDto filmDto, @RequestParam("poster") MultipartFile poster) throws IOException, URISyntaxException {
+        filmService.create(filmDto, poster);
         return "redirect:/film";
     }
 

@@ -1,4 +1,3 @@
-<!-- src/main/resources/templates/base.html -->
 <!DOCTYPE html>
 <html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
@@ -7,44 +6,76 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${title}">СОВРЕМЕННИК</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&family=Russo+One&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
-<body>
-<header th:fragment="header">
+<body class="body-container">
+<header th:fragment="header" class="header-container">
     <div class="logo">
-        <a th:href="@{/}" class="logo-link">СОВРЕМЕННИК</a>
+        <a th:href="@{/}" class="logo-link">СОВРЕМЕННИК💥</a>
     </div>
     <nav class="navbar">
         <ul>
-            <li><a th:href="@{/}">Главная</a></li>
-            <li><a th:href="@{/poster}">Афиша</a></li>
-            <li><a sec:authorize="hasAnyRole('SUPERADMIN', 'ADMIN', 'CASHIER')" th:href="@{/ticket/orders}">Заказы</a></li>
-<!--            <li><a th:href="@{/contacts}">Контакты</a></li>-->
+            <li class="navbar-item"><a th:href="@{/poster}" class="navbar-link">Афиша</a></li>
+            <li class="navbar-item"><a th:href="@{/#contacts}" class="navbar-link">Контакты</a></li>
         </ul>
     </nav>
-    <div class="login-link">
-        <span sec:authorize-url="/admin">
-            <a th:href="@{/admin/dashboard}">Панель управления</a> <!-- Ссылка на админскую панель -->
-        </span>
-        <!-- Проверка, аутентифицирован ли пользователь с использованием sec:authorize -->
-        <span sec:authorize="isAuthenticated()">
-            <a th:href="@{/profile}">Профиль</a> <!-- Ссылка на профиль -->
-        </span>
-        <span sec:authorize="isAnonymous()">
-            <a th:href="@{/login}">Вход</a> <!-- Ссылка на вход -->
-        </span>
+    <div class="login-links">
+        <a sec:authorize="hasAnyRole('SUPERADMIN', 'ADMIN', 'CASHIER')" th:href="@{/ticket/orders}" class="login-link">Заказы</a>
+        <a sec:authorize-url="/admin" th:href="@{/admin/dashboard}" class="login-link">Панель управления</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/profile}" class="login-link">Профиль</a>
+        <a sec:authorize="isAnonymous()" th:href="@{/login}" class="login-link">Вход</a>
     </div>
 </header>
-
-<main>
+<main class="main-container">
+    <!-- Здесь можно вставить основной контент -->
 </main>
 
-<footer th:fragment="footer">
-    <div class="contact-info">
-        <p>Телефон: +7 (901) 285-61-94</p>
-        <p>E-mail: <a href="mailto:sovremennik@yandex.ru">sovremennik@yandex.ru</a></p>
-        <p>&copy; 2024 СОВРЕМЕННИК</p>
-    </div>
+<footer class="footer-container">
+    <section id="contacts" class="contacts-section">
+        <h2>Как нас найти:</h2>
+        <div class="contacts-wrapper">
+            <iframe
+                    src="https://yandex.ru/map-widget/v1/?lang=ru_RU&scroll=true&source=constructor-api&um=constructor%3A77e6c6c1628a17523959188ec9e02a6f6649e0505af2d55bf2988136cf8e8037"
+                    width="800" height="600" frameborder="0">
+            </iframe>
+            <div class="contacts-info">
+                <p>Режим работы:</p>
+                <p>Рабочее время: с 7:30 до 18:00</p>
+                <p>Перерыв на обед: нет</p>
+                <p>Выходные дни: без выходных</p>
+                <br>
+                <p>Телефон: <strong style="color: #ef4f00">8(901) 285-61-94</strong></p>
+                <p>E-mail: <a href="mailto:sovremennik@yandex.ru">sovremennik@yandex.ru</a></p>
+            </div>
+        </div>
+    </section>
+    <section id="feedback" class="feedback-section">
+        <h2 class="feedback-heading">Свяжитесь с нами!</h2>
+        <p class="feedback-description">Мы хотим слышать Ваше мнение о Нашем кинотеатре!</p>
+        <form action="/feedback" method="post" class="feedback-form">
+            <div class="feedback-form-group">
+                <label for="email" class="feedback-form-label">Ваш email:</label>
+                <input type="email" id="email" name="email" placeholder="Введите ваш email" required
+                       class="feedback-form-input">
+            </div>
+            <div class="feedback-form-group">
+                <label for="phone" class="feedback-form-label">Ваш телефон:</label>
+                <input type="tel" id="phone" name="phone" placeholder="Введите ваш телефон"
+                       class="feedback-form-input" required>
+            </div>
+            <div class="feedback-form-group">
+                <label for="message" class="feedback-form-label">Ваш отзыв:</label>
+                <textarea id="message" name="message" placeholder="Введите ваш отзыв" rows="4" required
+                          class="feedback-form-textarea"></textarea>
+            </div>
+            <button type="submit" class="feedback-form-button">Отправить</button>
+        </form>
+    </section>
 </footer>
 </body>
 </html>

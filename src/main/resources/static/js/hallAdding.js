@@ -14,6 +14,7 @@ function hallsSize(){
 
         let hallRowLabel = document.createElement('label');
         hallRowLabel.setAttribute('for', `halls[${i}].row`);
+        hallRowLabel.setAttribute('class', `form-label`);
 
         let hallRowInput = document.createElement('input');
         hallRowInput.setAttribute('type', 'number');
@@ -22,6 +23,7 @@ function hallsSize(){
         hallRowInput.setAttribute('required', 'true');
         hallRowInput.setAttribute('min', '1');
         hallRowInput.setAttribute('oninput', 'validity.valid||(value="");');
+        hallRowInput.setAttribute('class', 'form-input');
 
         newHall.appendChild(hallRowText);
         newHall.appendChild(hallRowLabel);
@@ -32,6 +34,7 @@ function hallsSize(){
 
         let hallColLabel = document.createElement('label');
         hallColLabel.setAttribute('for', `halls[${i}].col`);
+        hallColLabel.setAttribute('class', `form-label`);
 
         let hallColInput = document.createElement('input');
         hallColInput.setAttribute('type', 'number');
@@ -40,6 +43,7 @@ function hallsSize(){
         hallColInput.setAttribute('required', 'true');
         hallColInput.setAttribute('min', '1');
         hallColInput.setAttribute('oninput', 'validity.valid||(value="");');
+        hallColInput.setAttribute('class', 'form-input');
 
         newHall.appendChild(hallColText);
         newHall.appendChild(hallColLabel);
@@ -53,6 +57,7 @@ function hallsSize(){
         hallNumberHiddenInput.setAttribute('required', 'true');
         hallNumberHiddenInput.setAttribute('min', '1');
         hallNumberHiddenInput.setAttribute('oninput', 'validity.valid||(value="");');
+        hallNumberHiddenInput.setAttribute('class', 'form-input');
 
         newHall.appendChild(hallNumberHiddenInput);
 

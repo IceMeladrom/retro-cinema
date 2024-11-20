@@ -1,54 +1,26 @@
-<!-- src/main/resources/templates/login.html -->
 <!DOCTYPE html>
 <html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${title}">Авторизация - СОВРЕМЕННИК</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css" th:href="@{/css/style.css}">
-</head>
+<head th:replace="base :: head"></head>
 <body>
 <header th:replace="~{base :: header}"></header>
-<main>
-    <h2>Войти в систему</h2>
-    <form th:action="@{/login}" method="post">
-        <div>
-            <label for="username">Логин:</label>
-            <input type="text" id="username" name="username" required>
-        </div>
-        <div>
-            <label for="password">Пароль:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <button type="submit">Войти</button>
-    </form>
-    <p>Еще нет аккаунта? <a th:href="@{/registration}">Зарегистрироваться</a></p>
-
-    <ul>
-        <p>Это дебаг поле, которое показывает, какие юзеры доступны</p>
-        <li>
-            <p>Login: superadmin</p>
-            <p>Pass: superadmin</p>
-            <p>Доступны все права и действия</p>
-        </li>
-        <li>
-            <p>Login: admin</p>
-            <p>Pass: admin</p>
-            <p>Доступны все права кассира и возможность добавлять сеансы и кинотеатры</p>
-        </li>
-        <li>
-            <p>Login: cashier</p>
-            <p>Pass: cashier</p>
-            <p>Доступна возможность продажи билетов и оформление возвратов</p>
-        </li>
-        <li>
-            <p>Login: distributor</p>
-            <p>Pass: distributor</p>
-            <p>Доступна возможность добавления новых фильмов</p>
-        </li>
-    </ul>
+<main class="auth-container">
+    <div class="auth-box">
+        <h2 class="auth-title">Вход в систему</h2>
+        <form th:action="@{/login}" method="post" class="auth-form">
+            <div class="form-group">
+                <label for="username" class="form-label">Логин</label>
+                <input type="text" id="username" name="username" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Пароль</label>
+                <input type="password" id="password" name="password" class="form-input" required>
+            </div>
+            <button type="submit" class="auth-button">Войти</button>
+        </form>
+        <p class="auth-switch">
+            Еще нет аккаунта? <a th:href="@{/registration}" class="switch-link">Регистрация</a>
+        </p>
+    </div>
 </main>
-<footer th:replace="~{base :: footer}"></footer>
 </body>
 </html>

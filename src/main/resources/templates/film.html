@@ -1,58 +1,64 @@
-<!-- src/main/resources/templates/login.html -->
 <!DOCTYPE html>
 <html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${title}">Управление кинотеатрами - СОВРЕМЕННИК</title>
+    <title th:text="${title}">Админ панель - СОВРЕМЕННИК</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&family=Russo+One&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css" th:href="@{/css/style.css}">
 </head>
 <body>
 <header th:replace="~{base :: header}"></header>
-<main>
-    <p><a href="/admin/dashboard">Назад</a></p>
-    <!--  Форма для добавления или редактирования фильма  -->
-    <section>
-        <form th:action="@{${isEdit} ? '/film/' + ${filmId} : '/film'}" th:object="${editedFilm}" method="post">
-            <div>
-                <label for="film-title">Название: </label>
+<main class="page-main">
+    <p><a href="/admin/dashboard" class="back-link">Назад</a></p>
+    <section class="form-section">
+        <h2 class="section-title">Добавить новый фильм</h2>
+        <form th:action="@{${isEdit} ? '/film/' + ${filmId} : '/film'}" th:object="${editedFilm}" method="post" class="form" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="film-title" class="form-label">Название: </label>
                 <input type="text" id="film-title" name="title" placeholder="Звёздные войны: Эпизод 1 – Скрытая угроза"
-                       th:field="*{title}" required>
+                       th:field="*{title}" required class="form-input">
             </div>
-            <div>
-                <label for="film-description">Описание: </label>
+            <div class="form-group">
+                <label for="film-poster" class="form-label">Постер: </label>
+                <input type="file" id="film-poster" name="poster"
+                       required class="form-input">
+            </div>
+            <div class="form-group">
+                <label for="film-description" class="form-label">Описание: </label>
                 <input type="text" id="film-description" name="description"
-                       placeholder="Давным-давно в далекой Галактике..." th:field="*{description}">
+                       placeholder="Давным-давно в далекой Галактике..." th:field="*{description}" class="form-input">
             </div>
-            <div>
-                <label for="film-release-date">Дата выпуска: </label>
-                <input type="date" id="film-release-date" name="releaseDate" th:field="*{releaseDate}" th:value="*{releaseDate}">
+            <div class="form-group">
+                <label for="film-release-date" class="form-label">Дата выпуска: </label>
+                <input type="date" id="film-release-date" name="releaseDate" th:field="*{releaseDate}" th:value="*{releaseDate}" class="form-input">
             </div>
-            <div>
-                <label for="film-duration">Продолжительность в минутах: </label>
+            <div class="form-group">
+                <label for="film-duration" class="form-label">Продолжительность в минутах: </label>
                 <input type="number" id="film-duration" name="duration" min="1" oninput="validity.valid||(value='');"
-                       placeholder="110" th:field="*{duration}">
+                       placeholder="110" th:field="*{duration}" class="form-input">
             </div>
-            <button th:text="${isEdit} ? 'Редактировать' : 'Добавить'" type="submit">Добавить/Редактировать</button>
+            <button th:text="${isEdit} ? 'Редактировать' : 'Добавить'" type="submit" class="form-button">Добавить/Редактировать</button>
         </form>
     </section>
 
-    <!-- Список всех фильмов -->
-    <section>
-        <h3>Список фильмов</h3>
-        <ul>
-            <li th:each="film : ${films}">
-                <a th:href="@{/film/{filmId}(filmId=${film.id})}">
-                    <span th:text="${film.title}"></span>
+    <section class="list-section">
+        <h3 class="section-title">Список фильмов</h3>
+        <ul class="film-list">
+            <li th:each="film : ${films}" class="film-item">
+                <a th:href="@{/film/{filmId}(filmId=${film.id})}" class="film-link">
+                    <span th:text="${film.title}" class="film-title"></span>
                 </a>
-                <span th:text="${film.description}"></span>
-                <span th:text="${film.duration}"></span>
-                <span th:text="${film.releaseDate}"></span>
+                <span th:text="${film.description}" class="film-description"></span>
+                <span th:text="${film.duration}" class="film-duration"></span>
+                <span th:text="${film.releaseDate}" class="film-release-date"></span>
             </li>
         </ul>
     </section>
 </main>
-<footer th:replace="~{base :: footer}"></footer>
 </body>
 </html>
