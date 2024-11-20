@@ -10,7 +10,9 @@ import ru.bmstu.retro_cinema.entity.Cinema;
 import ru.bmstu.retro_cinema.entity.Film;
 import ru.bmstu.retro_cinema.repository.FilmRepository;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -27,29 +29,23 @@ import java.util.Objects;
 @AllArgsConstructor
 public class FilmService {
     private FilmRepository filmRepository;
+    private static final String uploadDirectory = System.getProperty("user.dir") + "/uploads";
 
     public int getNumberOfFilms() {
         return filmRepository.findAll().size();
     }
 
     public FilmDto create(FilmDto filmDto, MultipartFile poster) throws IOException, URISyntaxException {
-        // Указываем путь для сохранения файлов
-        Path uploadDir = Path.of("uploads/img/");
-
-        // Создаем папку, если она не существует
-        File directory = new File(uploadDir.toString());
-        if (!directory.exists()) {
-            directory.mkdirs();  // Создаем директорию
-        }
-
         String fileName = poster.getOriginalFilename();
-        Path filePath = uploadDir.resolve(fileName);
-        Files.copy(poster.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+        String filePath = Paths.get(uploadDirectory, fileName).toString();
+        BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(filePath)));
+        stream.write(poster.getBytes());
+        stream.close();
 
         Film film = FilmDto.fromDto(filmDto);
-        film.setPathToPoster(filePath.toString());
-        FilmDto savedFilmDto = FilmDto.toDto(filmRepository.save(film));
-        return savedFilmDto;
+        film.setPathToPoster("/uploads/" + fileName);
+
+        return FilmDto.toDto(filmRepository.save(film));
     }
 
     public List<FilmDto> readAll() {

@@ -16,7 +16,7 @@ spring:
     password: postgres
     driverClassName: org.postgresql.Driver
   resources:
-    static-locations: file:uploads/
+    static-locations: file:uploads/img/
 
 #logging:
 #  level:
