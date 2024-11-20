@@ -84,7 +84,7 @@ body, html {
 /* Основной блок */
 .main-container {
     background: url('/img/main-background.svg') no-repeat center center;
-    background-size: 150%;
+    background-size: 120%;
     color: white;
     min-height: 800px;
     width: 100%;
@@ -101,7 +101,7 @@ body, html {
 /* Секция контактов */
 .contacts-section {
     background: url('/img/contacts-background.jpg') no-repeat center center;
-    background-size: 150%;
+    background-size: 120%;
     font-size: 64px;
     padding-bottom: 130px;
     color: white;
@@ -142,7 +142,7 @@ body, html {
 /* Секция обратной связи */
 .feedback-section {
     background: url('/img/feedback-background.jpg') no-repeat center center;
-    background-size: 150%;
+    background-size: 120%;
     color: white;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -221,7 +221,7 @@ body, html {
 footer,
 .contacts-section,
 .feedback-section {
-    background-size: 150%; /* Масштабирование */
+    background-size: 120%; /* Масштабирование */
     background-repeat: no-repeat;
     background-position: center;
     min-height: 800px;
