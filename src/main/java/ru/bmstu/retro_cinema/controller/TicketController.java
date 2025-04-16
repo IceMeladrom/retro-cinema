@@ -56,6 +56,7 @@ public class TicketController {
         }
     }
 
+
     @GetMapping("/return/{ticketId}")
     public String refundTicket(@PathVariable UUID ticketId, RedirectAttributes redirectAttributes) {
         if (ticketService.refundTicket(ticketId).getStatusCode().isSameCodeAs(HttpStatus.OK))
